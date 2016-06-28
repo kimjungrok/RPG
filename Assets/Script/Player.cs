@@ -3,7 +3,9 @@ using System.Collections;
 
 public class Player : MonoBehaviour {
 
-    public enum STATE { IDLE, DEATH }
+    public enum STATE { IDLE, DEATH } // 평소, 죽음
+
+    public STATE state; // 현재 상태를 얻습니다. get
     public Job.JOB job;
 
     private int m_Hp;                 // 현재 HP
@@ -20,6 +22,7 @@ public class Player : MonoBehaviour {
     private int m_Experience;         // 현재 경험치
 
     private Job m_Job;                // 현재 직업 정보(스킬, 레벨별 스탯)
+    private Skill curSkill;             // 현재 사용 가능한 메인스킬
 
     // 프로퍼티(속성)
     public int hp // 현재 Hp를 제어.  get,set
@@ -196,16 +199,46 @@ public class Player : MonoBehaviour {
         return m_Job.getLevelInfo(m_Level);
     }
 
-    // 속성
-    public STATE state; // 현재 상태를 얻습니다. get
+   
 
     // 메서드
-    public bool Damaged(int damage) // 데미지를 받는다. 성공 여부를 되돌려준다. Stat 클래스 - Hp정보 필요
+    public bool Damaged(int damage) // 데미지를 받는다. 성공 여부를 되돌려준다. 
     {
+        // 상태 확인 
+
+        //      A. 일반 B. 죽음
+
+        
         return false;
     }
-    public bool Cast(int indexSkill) // 스킬을 시전합니다. 성공 여부를 되돌려 줍니다.
+    public bool Cast() // 스킬을 시전합니다. 성공 여부를 되돌려 줍니다.
     {
+        // 상태 확인
+        
+        // 스킬 시전
+
         return false; 
     }
+    public void LevelUp()
+    {
+        // 레벨업
+
+        // Hp, Sp Max
+
+        // 필요 경험치 재 설정
+
+        // 레벨에 따른 메인스킬 변경
+    }
+    public void DoDeath()
+    {
+        // 상태 변경 - 죽음
+        
+    }
+
+    private void setCurrentMainSkill()
+    {
+        // 현재 레벨을 확인하고 그에 맞는 메인스킬을 설정
+
+    }
+
 }

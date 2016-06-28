@@ -11,7 +11,7 @@ public class Job  {
     public JOB job;
     public List<Level> listLevelInfo;   // 레벨별 스탯 정보  
     public List<Skill> listSkill;       // 스킬 정보
-
+    
     public Level getLevelInfo(int level)
     {
         if (level < 0)
