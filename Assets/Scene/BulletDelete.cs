@@ -1,0 +1,33 @@
+﻿using UnityEngine;
+using System.Collections;
+
+public class BulletDelete : MonoBehaviour {
+
+	GameObject Bullet;
+	public bool Bulletdelete = false;
+	//GameObject ThisisDoor;
+
+
+	// Use this for initialization
+	void Start () {
+		Bullet = GameObject.FindGameObjectWithTag ("bullet");
+	}
+
+	void OnTriggerEnter(Collider keeeyyy)
+	{
+		if (keeeyyy.gameObject.tag == "bullet") {
+			Bulletdelete = true;
+			//Destroy (gameObject);
+			//DestroyObject (ThisisKey);
+		}
+	}
+
+
+	// Update is called once per frame
+	void Update () {
+
+		if (Bulletdelete) {
+			DestroyObject (Bullet);
+		}
+	}
+}
