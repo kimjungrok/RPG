@@ -194,9 +194,9 @@ public class Player : MonoBehaviour {
         m_Job = GameObject.Find("Logic").GetComponent<JobInfo>().getJobInfo(job);
     }
 
-    private Level getLevelInfo()
+    private Stat getLevelInfo()
     {
-        return m_Job.getLevelInfo(m_Level);
+        return m_Job.getStatInfo(m_Level);
     }
 
    

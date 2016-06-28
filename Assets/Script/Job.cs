@@ -9,17 +9,17 @@ public class Job  {
     public enum JOB{ WARRIOR, ARCHER } // 직업 정보
 
     public JOB job;
-    public List<Level> listLevelInfo;   // 레벨별 스탯 정보  
+    public List<Stat> listStatInfo;   // 레벨별 스탯 정보  
     public List<Skill> listSkill;       // 스킬 정보
     
-    public Level getLevelInfo(int level)
+    public Stat getStatInfo(int level)
     {
         if (level < 0)
             return null;
 
-        else if (level >= listLevelInfo.Count)
+        else if (level >= listStatInfo.Count)
             return null;
 
-        return listLevelInfo[level];
+        return listStatInfo[level];
     }
 }
