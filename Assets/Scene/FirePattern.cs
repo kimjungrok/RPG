@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class pattern1 : MonoBehaviour {
+public class FirePattern : MonoBehaviour {
 	public GameObject Bullet;
 	Transform FirePoint;
-	public float fps = 10;
+	public float fps1 = 10;
 	bool isfire = false;
+	public GameObject Bullet2;
+	public float fps2 = 10;
 
 	// Use this for initialization
 	void Start () {
@@ -15,13 +17,17 @@ public class pattern1 : MonoBehaviour {
 	}
 
 	IEnumerator Shot() {
-		
+
 		while (true) {
 			if (isfire == false) {
 				yield return null;
 			} else {
 				Instantiate (Bullet, FirePoint.position, FirePoint.rotation);
-				yield return new WaitForSeconds (1 / fps);
+				yield return new WaitForSeconds (1 / fps1);
+
+				Instantiate (Bullet2, FirePoint.position, FirePoint.rotation);
+				yield return new WaitForSeconds (1 / fps2);
+
 			}
 		}
 	}

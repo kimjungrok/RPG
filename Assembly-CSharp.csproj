@@ -46,15 +46,15 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\LightningBolt\LightningBoltScript.cs" />
+     <Compile Include="Assets\Scene\BossPattern.cs" />
      <Compile Include="Assets\Scene\Bullet.cs" />
      <Compile Include="Assets\Scene\BulletDelete.cs" />
+     <Compile Include="Assets\Scene\FirePattern.cs" />
      <Compile Include="Assets\Scene\Laser.cs" />
      <Compile Include="Assets\Scene\MonsterManager.cs" />
-     <Compile Include="Assets\Scene\Patter2.cs" />
-     <Compile Include="Assets\Scene\Pattern3.cs" />
+     <Compile Include="Assets\Scene\NewFirePattern.cs" />
      <Compile Include="Assets\Scene\PlayerchaseLook.cs" />
-     <Compile Include="Assets\Scene\pattern1.cs" />
-     <Compile Include="Assets\Scene\pattern4.cs" />
+     <Compile Include="Assets\Scene\RotationPattern.cs" />
      <Compile Include="Assets\Scene\scripttt\BossAi.cs" />
      <Compile Include="Assets\Scene\scripttt\DoorOPEN.cs" />
      <Compile Include="Assets\Scene\scripttt\FireInTheHole.cs" />
@@ -73,6 +73,13 @@
      <Compile Include="Assets\Scene\scripttt\specialAi.cs" />
      <Compile Include="Assets\Scene\scripttt\specialenemy2.cs" />
      <Compile Include="Assets\Scene\scripttt\specialenemy4.cs" />
+     <Compile Include="Assets\Script\GameManager.cs" />
+     <Compile Include="Assets\Script\Job.cs" />
+     <Compile Include="Assets\Script\JobInfo.cs" />
+     <Compile Include="Assets\Script\Level.cs" />
+     <Compile Include="Assets\Script\Player.cs" />
+     <Compile Include="Assets\Script\Skill.cs" />
+     <Compile Include="Assets\Script\Stage.cs" />
      <None Include="Assets\LightningBolt\Readme.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

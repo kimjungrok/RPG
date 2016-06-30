@@ -24,12 +24,10 @@ public class Bullet : MonoBehaviour {
 
 	void Update () {
 		//if(bullet == null)
-			//rigid.velocity += new Vector3 (0f, -0.3f, 0f);
-
-		if (Vector3.Distance (Player.transform.position, this.gameObject.transform.position) >= 100.0f) {
-			Destroy (gameObject);
-		}
-
+		//rigid.velocity += new Vector3 (0f, -0.3f, 0f);
+		//if (Vector3.Distance (Player.transform.position, this.gameObject.transform.position) >= 100.0f) {
+			Destroy (gameObject, 3f);
+		//}
 	}
 
 }

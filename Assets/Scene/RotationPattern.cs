@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Patter2 : MonoBehaviour {
+public class RotationPattern : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {

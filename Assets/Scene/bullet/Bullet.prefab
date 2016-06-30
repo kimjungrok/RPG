@@ -12,7 +12,7 @@ GameObject:
   - 135: {fileID: 13534840}
   - 23: {fileID: 2331584}
   - 114: {fileID: 11495688}
-  - 54: {fileID: 5449432}
+  - 54: {fileID: 5442026}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: bullet
@@ -65,7 +65,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 192170}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!54 &5449432
+--- !u!54 &5442026
 Rigidbody:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -93,6 +93,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 50
   rigid: {fileID: 0}
+  Player: {fileID: 0}
 --- !u!135 &13534840
 SphereCollider:
   m_ObjectHideFlags: 1
