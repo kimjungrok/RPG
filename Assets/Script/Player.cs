@@ -228,6 +228,7 @@ public class Player : MonoBehaviour {
         // 필요 경험치 재 설정
 
         // 레벨에 따른 메인스킬 변경
+
     }
     public void DoDeath()
     {
