@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &155088
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 420080}
+  - 114: {fileID: 11482610}
+  m_Layer: 0
+  m_Name: Logic
+  m_TagString: Untagged
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &420080
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 155088}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 16.79, y: -9.457692, z: 5.244968}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!114 &11482610
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 155088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79bcb9683960e934c87773a44a095f2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  listStage:
+  - stageName: "\uCD08\uBCF4\uC874"
+    sceneName: SceneStage1_Normal
+    type: 0
+  - stageName: "\uCD08\uBCF4\uBCF4\uC2A4\uC874"
+    sceneName: SceneStage1_Boss
+    type: 1
+  - stageName: "\uC219\uB828\uC874"
+    sceneName: SceneStage2_Normal
+    type: 0
+  - stageName: "\uC219\uB828\uBCF4\uC2A4\uC874"
+    sceneName: SceneStage2_Boss
+    type: 1
+  - stageName: "\uCD08\uBCF4\uC8742"
+    sceneName: SceneStage1_Normal2
+    type: 0
+  listJob:
+  - job: 0
+    jopPrefab: {fileID: 120602, guid: 97c666e3d8b0ea845885f64b74ee59d5, type: 2}
+    listStatInfo: []
+    listSkill: []
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 155088}
+  m_IsPrefabParent: 1

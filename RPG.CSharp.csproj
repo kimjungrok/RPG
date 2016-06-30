@@ -63,13 +63,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Script\Entrance.cs" />
     <Compile Include="Assets\Script\GameManager.cs" />
     <Compile Include="Assets\Script\Job.cs" />
-    <Compile Include="Assets\Script\JobInfo.cs" />
     <Compile Include="Assets\Script\Player.cs" />
     <Compile Include="Assets\Script\Skill.cs" />
     <Compile Include="Assets\Script\Stage.cs" />
     <Compile Include="Assets\Script\Stat.cs" />
+    <Compile Include="Assets\Script\TestMy1.cs" />
+    <Compile Include="Assets\Script\TestPlayerMove.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
