@@ -10,21 +10,22 @@ public class Entrance : MonoBehaviour {
     void Start()
     {
         gm = FindObjectOfType<GameManager>();
+        StartCoroutine(ColliderDelay());
     }
 
     void OnTriggerEnter(Collider colOther)
     {
         if (colOther.CompareTag("Player"))
         {
-            StartCoroutine(moveStage());
+            gm.MoveStage(indexMoveStage, transPlayerInNextStage);
         }
     }
 
-    IEnumerator moveStage()
+    IEnumerator ColliderDelay()
     {
-        gm.MoveStage(indexMoveStage);
-        gm.getObjPlayer().transform.position = transPlayerInNextStage.position;
-        yield return new WaitForSeconds(0f);
-        
+        GetComponent<BoxCollider>().enabled = false;
+        yield return new WaitForSeconds(0.5f);
+        GetComponent<BoxCollider>().enabled = true;
     }
+
 }
