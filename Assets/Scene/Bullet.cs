@@ -22,6 +22,15 @@ public class Bullet : MonoBehaviour {
 
 	// Update is called once per frame
 
+	void OnTriggerEnter(Collider coll) {
+		if (coll.CompareTag ("Player")) {
+			//playerhp를 깍음
+		}
+			
+
+
+	}
+
 	void Update () {
 		//if(bullet == null)
 		//rigid.velocity += new Vector3 (0f, -0.3f, 0f);
