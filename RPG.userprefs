@@ -1,16 +1,13 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scene\NewFirePattern.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scene\MonsterManager.cs">
     <Files>
-      <File FileName="Assets\Scene\MonsterManager.cs" Line="42" Column="19" />
-      <File FileName="Assets\Scene\BossPattern.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scene\FirePattern.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scene\RotationPattern.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scene\BossPattern.cs" Line="78" Column="2" />
+      <File FileName="Assets\Scene\MonsterManager.cs" Line="126" Column="4" />
       <File FileName="Assets\Scene\Bullet.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scene\Laser.cs" Line="1" Column="1" />
       <File FileName="Assets\Scene\PlayerchaseLook.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scene\NewFirePattern.cs" Line="74" Column="6" />
-      <File FileName="Assets\Scene\scripttt\specialAi.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scene\NewFirePattern.cs" Line="112" Column="26" />
+      <File FileName="Assets\Scene\scripttt\playermove.cs" Line="50" Column="47" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
