@@ -331,7 +331,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 905, y: 203}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &601950314
 MonoBehaviour:
@@ -346,7 +346,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -567,6 +567,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 11482610, guid: 9b22ad0f2f91daf4d9ae26ac2b9fa68b, type: 2}
+      propertyPath: listJob.Array.data[0].listStatInfo.Array.size
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 420080, guid: 9b22ad0f2f91daf4d9ae26ac2b9fa68b, type: 2}
       propertyPath: m_LocalPosition.x
       value: 16.79
@@ -598,6 +602,34 @@ Prefab:
     - target: {fileID: 420080, guid: 9b22ad0f2f91daf4d9ae26ac2b9fa68b, type: 2}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11482610, guid: 9b22ad0f2f91daf4d9ae26ac2b9fa68b, type: 2}
+      propertyPath: listJob.Array.data[0].listStatInfo.Array.data[0].maxHP
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 11482610, guid: 9b22ad0f2f91daf4d9ae26ac2b9fa68b, type: 2}
+      propertyPath: listJob.Array.data[0].listStatInfo.Array.data[0].maxSP
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 11482610, guid: 9b22ad0f2f91daf4d9ae26ac2b9fa68b, type: 2}
+      propertyPath: listJob.Array.data[0].listStatInfo.Array.data[0].attackPower
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 11482610, guid: 9b22ad0f2f91daf4d9ae26ac2b9fa68b, type: 2}
+      propertyPath: listJob.Array.data[0].listStatInfo.Array.data[0].hpRegenerate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11482610, guid: 9b22ad0f2f91daf4d9ae26ac2b9fa68b, type: 2}
+      propertyPath: listJob.Array.data[0].listStatInfo.Array.data[0].spRegenerate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11482610, guid: 9b22ad0f2f91daf4d9ae26ac2b9fa68b, type: 2}
+      propertyPath: listJob.Array.data[0].listStatInfo.Array.data[0].requiredExp
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 11482610, guid: 9b22ad0f2f91daf4d9ae26ac2b9fa68b, type: 2}
+      propertyPath: listJob.Array.data[0].listStatInfo.Array.data[1].requiredExp
+      value: 120
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9b22ad0f2f91daf4d9ae26ac2b9fa68b, type: 2}

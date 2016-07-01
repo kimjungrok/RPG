@@ -62,6 +62,7 @@ public class GameManager : MonoBehaviour {
     {
         CreateNewPlayer();
         objBarUI = Instantiate(prefabBarUI);
+        objBarUI.SetActive(false);
         DontDestroyOnLoad(objBarUI);
         MoveStage(0, transStartPosInNewGame);
     }
@@ -71,6 +72,7 @@ public class GameManager : MonoBehaviour {
     }
     IEnumerator LoadStage(string sceneName, Transform transPlayerPos)
     {
+        objBarUI.SetActive(false);
         yield return FadeEffect(FADE.OUT);
         AsyncOperation ao = SceneManager.LoadSceneAsync(sceneName);
         while (!ao.isDone)
@@ -79,6 +81,7 @@ public class GameManager : MonoBehaviour {
         }
         objPlayer.transform.position = transPlayerPos.position;
         yield return FadeEffect(FADE.IN);
+        objBarUI.SetActive(true);
     }
     IEnumerator FadeEffect(FADE mode)
     {
