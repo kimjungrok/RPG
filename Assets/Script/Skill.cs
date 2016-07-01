@@ -3,6 +3,7 @@ using System.Collections;
 
 [System.Serializable]
 public class Skill {
+
     // 플레이어의 스킬 클래스    
     public string skillName;    // 스킬 이름
     public int damage;          // percent 단위
