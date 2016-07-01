@@ -14,6 +14,8 @@ public class BossPattern : MonoBehaviour {
 	public GameObject Pattern8;
 	public GameObject Pattern9;
 
+	public GameObject Boss2;
+
 
 	//public List<GameObject> ListPattern;
 	//[Range(0,1)]
@@ -206,5 +208,10 @@ public class BossPattern : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		//HPcheak ();
+		if (BossHPPercent <= 0) {
+			Instantiate (Boss2, this.gameObject.transform.position, this.gameObject.transform.rotation);
+			Destroy (gameObject, 0.5f);
+
+		}
 	}
 }

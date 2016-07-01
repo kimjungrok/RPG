@@ -119,7 +119,7 @@ public class MonsterManager : MonoBehaviour {
 
 			agent.Stop();
 
-			Instantiate (DropItem, ThisMonster.transform.position, ThisMonster.transform.rotation);
+			Instantiate (DropItem, ThisMonster.transform.position, ThisMonster.transform.rotation); // 2페이즈보스생성 실제로는 dropitem에 넣
 
 			enabled = false; // 아이템을 한번만 생성하게
 			NextPattern = Time.time + patternRegTime;
