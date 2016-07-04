@@ -5,8 +5,7 @@ public class Player : MonoBehaviour {
 
     public enum STATE { IDLE, DEATH } // 평소, 죽음
 
-    public STATE state; // 현재 상태를 얻습니다. get
-    public Job.JOB job;
+    private STATE state; // 현재 상태를 얻습니다. get
 
     private int m_Hp;                 // 현재 HP
     private int m_HpMaxBuff;          // Buff HP (장비로 인한 추가 HP)
@@ -210,8 +209,8 @@ public class Player : MonoBehaviour {
 
     void Start()
     {
-        gm = FindObjectOfType<GameManager>();
-        m_Job = gm.getJobInfo(job);        
+        gm = GameManager.instance;
+        m_Job = gm.getCurrentJobInfo();
     }
     
     private Stat getLevelInfo()
