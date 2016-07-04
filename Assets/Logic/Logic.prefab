@@ -62,8 +62,20 @@ MonoBehaviour:
   listJob:
   - job: 0
     jopPrefab: {fileID: 120602, guid: 97c666e3d8b0ea845885f64b74ee59d5, type: 2}
-    listStatInfo: []
     listSkill: []
+    maxLevel: 20
+    BaserequiredExp: 100
+    ExpRateofIncrease: 1.1
+    BaseHp: 100
+    AddHp: 5
+    BaseSp: 100
+    AddSp: 5
+    BaseAp: 10
+    AddAp: 2
+    BaseHpRegen: 1
+    BaseHpRegenInteval: 1
+    BaseSpRegen: 1
+    BaseSpRegenInteval: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
