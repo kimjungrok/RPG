@@ -7,6 +7,8 @@ public class MonsterManager : MonoBehaviour {
 	public GameObject player; // 플레이어오브젝트
 	public GameObject ThisMonster; //이 몬스터
 
+	//public Ray ray;
+
 	float patternRegTime = 5f; // 다음 행동까지 대기시간
 	float NextPattern = 0f; //다음패턴까지 대기시간
 
@@ -37,7 +39,7 @@ public class MonsterManager : MonoBehaviour {
 		Movepoint = LivingZone.transform;
 		StartCoroutine (RunAway(10));
 
-
+		//ray = new Ray (ThisMonster.transform.position, ThisMonster.transform.forward);
 
 	}
 
@@ -117,11 +119,15 @@ public class MonsterManager : MonoBehaviour {
 
 			agent.Stop();
 
-			Instantiate (DropItem, ThisMonster.transform.position, ThisMonster.transform.rotation);
+			Instantiate (DropItem, ThisMonster.transform.position, ThisMonster.transform.rotation); // 2페이즈보스생성 실제로는 dropitem에 넣
 
 			enabled = false; // 아이템을 한번만 생성하게
 			NextPattern = Time.time + patternRegTime;
 			Destroy(gameObject, 10f);
+
+
+			//Instantiate (ThisMonster, LivingZone.transform.position, LivingZone.transform.rotation); // 리스폰
+			//enabled = false;
 		}
 			
 	}
