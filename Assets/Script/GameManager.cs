@@ -13,17 +13,39 @@ public class GameManager : MonoBehaviour {
     public GameObject preSceneFade;
     public Transform transStartPosInNewGame;
     public List<Stage> listStage;
-    public List<Job> listJob; // 직업별 정보
+    public List<Job> listJob;
 
     private Stage curStage; // 현재 Stage
     private Job.JOB jobNewSelected = Job.JOB.WARRIOR;// 선택한 직업
     private GameObject objPlayer;   // 생성한 플레이어 오브젝트
     private GameObject objBarUI;    // 생성한 Bar UI;
-    private float fadeTime = 2f;
-    
-    void Awake()
+    private float fadeTime = 0.5f;
+
+    private static GameManager m_instance;
+    public static GameManager instance
     {
-        DontDestroyOnLoad(gameObject);
+        //싱글톤, 오직 한개의 인스턴스(생성)만 가지도록 한다.
+        get
+        {
+            if (m_instance == null)
+            {
+                // 이미 존재하는 GameManager를 찾는다.
+                m_instance = FindObjectOfType<GameManager>();
+                if(m_instance == null)
+                {
+                    // 없으면 새 오브젝트에 추가한다.
+                    GameObject newObject = new GameObject("Logic");         
+                    GameObject objLogic = Instantiate(newObject);
+                    m_instance = objLogic.AddComponent<GameManager>();
+                }
+            }
+            return m_instance;
+        }
+    }
+
+    void Awake()
+    {      
+        DontDestroyOnLoad(gameObject); // 삭제하지 않음
     }
 
     void Start()
@@ -41,7 +63,7 @@ public class GameManager : MonoBehaviour {
     }
     public void CreateNewPlayer()
     {
-        GameObject prefab = getJobInfo(jobNewSelected).jopPrefab;
+        GameObject prefab = getCurrentJobInfo().jopPrefab;
         objPlayer = Instantiate(prefab);
         DontDestroyOnLoad(objPlayer);
     }
@@ -50,15 +72,15 @@ public class GameManager : MonoBehaviour {
         curStage = listStage[indexStage];
         StartCoroutine(LoadStage(curStage.sceneName, transStartPos));
     }
-    public Job getJobInfo(Job.JOB job) // 직업에 해당하는 정보를 반환
+    public Job getCurrentJobInfo() // 직업에 해당하는 정보를 반환
     {
-        return listJob[(int)job];
+        return listJob[(int)jobNewSelected];
     }
     public GameObject getObjPlayer()
     {
         return objPlayer;
     }
-    public void StartNewGame()
+    public void StartNewGame() // 새 게임 시작
     {
         CreateNewPlayer();
         objBarUI = Instantiate(prefabBarUI);
@@ -66,51 +88,59 @@ public class GameManager : MonoBehaviour {
         DontDestroyOnLoad(objBarUI);
         MoveStage(0, transStartPosInNewGame);
     }
-    public void ExitGame()
+
+    public void ExitGame() // 게임 종료
     {
-        Application.Quit();
+        Application.Quit(); 
     }
+
     IEnumerator LoadStage(string sceneName, Transform transPlayerPos)
     {
+        Time.timeScale = 0f;
         objBarUI.SetActive(false);
-        yield return FadeEffect(FADE.OUT);
+        GameObject objFadeCanvas = Instantiate(preSceneFade);
+        DontDestroyOnLoad(objFadeCanvas);
+        Image img = objFadeCanvas.GetComponentInChildren<Image>();
+
+        yield return FadeEffect(FADE.OUT, img);
+
+
         AsyncOperation ao = SceneManager.LoadSceneAsync(sceneName);
         while (!ao.isDone)
-        {
+        { 
             yield return null;
         }
         objPlayer.transform.position = transPlayerPos.position;
-        yield return FadeEffect(FADE.IN);
-        objBarUI.SetActive(true);
+        yield return FadeEffect(FADE.IN, img);
+
+        objBarUI.SetActive(true); 
+               
+        Destroy(objFadeCanvas);
+        Time.timeScale = 1f;
     }
-    IEnumerator FadeEffect(FADE mode)
+    IEnumerator FadeEffect(FADE mode, Image img)
     {
-        Color colorSource;
-        Color colorDestination;
-        Time.timeScale = 0f;
+        Color colorSource;      // 초기 색상
+        Color colorDestination; // 끝 색상
+
         if(mode == FADE.IN) // 점점 맑아지는 효과
         {
             colorSource = Color.black;
             colorDestination = Color.clear; 
         }
-        else
+        else // 점점 어두워지는 효과
         {
             colorSource = Color.clear;
             colorDestination = Color.black;            
-        }
-        GameObject obj = Instantiate(preSceneFade);
-        DontDestroyOnLoad(obj);
-        Image img = obj.GetComponentInChildren<Image>();
-
-        float startTime = Time.realtimeSinceStartup;
-        float endTime = startTime + 1f;
+        }        
+        float startTime = Time.realtimeSinceStartup; // 시작시간
+        float endTime = startTime + fadeTime;       // 끝 시간
        
-        while (endTime > Time.realtimeSinceStartup)
+        while (endTime > Time.realtimeSinceStartup) 
         {
             img.color = Color.Lerp(colorSource, colorDestination, (Time.realtimeSinceStartup - startTime) / fadeTime);
             yield return null;
-        }
-        Destroy(obj);
-        Time.timeScale = 1f;
+        }        
+        
     }
 }
