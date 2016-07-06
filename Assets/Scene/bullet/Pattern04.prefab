@@ -44,6 +44,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 23.4, y: -8.98125, z: -49.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 424882}
   m_RootOrder: 0
@@ -56,6 +57,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -21, y: 12.8, z: 7.875}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 416742}
   m_Father: {fileID: 0}
@@ -116,8 +118,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53bb6f3f4629059478ca91b5def40f40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Bullet1: {fileID: 192170, guid: 57ea84e04191d4d459d268ca7fc5bac8, type: 2}
-  Bullet2: {fileID: 192170, guid: 57ea84e04191d4d459d268ca7fc5bac8, type: 2}
+  Bullet1: {fileID: 189362, guid: 6bd9e18cea75a384983db946bef041e9, type: 2}
+  Bullet2: {fileID: 165922, guid: 803441f686e8fff4384970012ba6a57a, type: 2}
   FirePoint: {fileID: 118598}
   FireRadicalAngle: 5
   HowLongShootTime: 0
