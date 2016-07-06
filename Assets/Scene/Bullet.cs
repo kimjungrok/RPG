@@ -5,6 +5,7 @@ public class Bullet : MonoBehaviour {
 
 	public float speed;
 	public Rigidbody rigid;
+	//public int BulletDamage;
 	//public GameObject bullet;
 
 	public GameObject Player;
@@ -14,10 +15,8 @@ public class Bullet : MonoBehaviour {
 		//bullet = GameObject.FindGameObjectWithTag("bullet");
 		rigid = GetComponent<Rigidbody> ();
 		rigid.velocity = transform.forward * speed;
-		Player = GameObject.FindGameObjectWithTag ("Player");
-
-
-	}
+        Player = GameObject.FindGameObjectWithTag("Player");
+    }
 
 
 	// Update is called once per frame
@@ -25,6 +24,7 @@ public class Bullet : MonoBehaviour {
 	void OnTriggerEnter(Collider coll) {
 		if (coll.CompareTag ("Player")) {
 			//playerhp를 깍음
+			//PlayerhP -= BulletDamage;
 		}
 			
 

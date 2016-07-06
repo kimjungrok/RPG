@@ -129,7 +129,7 @@ public class NewFirePattern : MonoBehaviour {
 	void OnTriggerExit(Collider Coll)
 	{
 		if (Coll.gameObject.tag == "Player") {
-			isfire = true;
+			isfire = false;
 		}
 	}
 
