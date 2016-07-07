@@ -5,7 +5,7 @@ public class Bullet : MonoBehaviour {
 
 	public float speed;
 	public Rigidbody rigid;
-	//public int BulletDamage;
+	//public int BulletDamage; //피격시플레이어가입는공격력
 	//public GameObject bullet;
 
 	public GameObject Player;
@@ -22,7 +22,7 @@ public class Bullet : MonoBehaviour {
 	// Update is called once per frame
 
 	void OnTriggerEnter(Collider coll) {
-		if (coll.CompareTag ("Player")) {
+		if (coll.gameObject.tag == ("Player")) {
 			//playerhp를 깍음
 			//PlayerhP -= BulletDamage;
 		}
@@ -31,12 +31,8 @@ public class Bullet : MonoBehaviour {
 
 	}
 
-	void Update () {
-		//if(bullet == null)
-		//rigid.velocity += new Vector3 (0f, -0.3f, 0f);
-		//if (Vector3.Distance (Player.transform.position, this.gameObject.transform.position) >= 100.0f) {
+	void Update () {		
 			Destroy (gameObject, 3f);
-		//}
 	}
 
 }

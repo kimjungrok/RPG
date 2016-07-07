@@ -23,6 +23,7 @@ public class MonsterManager : MonoBehaviour {
 
 	private Vector3 vecSpawnPos; // 몬스터의 생성위치
 	private Vector3 vecMovePos;// 해당 몬스터의 이동지점
+	private Vector3 RespawnPosOrigin;
 
 	public float MonsterMaxHP; //몬스터의 HP
 	public float MonsterCurrentHP;
@@ -45,6 +46,7 @@ public class MonsterManager : MonoBehaviour {
 		aniCon = GetComponent<Animator> ();
 		vecMovePos = vecSpawnPos;
 		StartCoroutine (RunAway(10));
+		RespawnPosOrigin = vecSpawnPos;
 
 		enabled = true;
 
@@ -55,7 +57,7 @@ public class MonsterManager : MonoBehaviour {
 	}
 	IEnumerator Respawn(float Respawntime){
 		yield return new WaitForSeconds (Respawntime);
-		Instantiate (RespawnMonster, transform.position, transform.rotation);
+		Instantiate (RespawnMonster, RespawnPosOrigin, transform.rotation);
 	}
 
 	IEnumerator RunAway(float time){
@@ -67,9 +69,25 @@ public class MonsterManager : MonoBehaviour {
 
 	IEnumerator ItemDrop(){
 		yield return new WaitForSeconds (1);
-
 	}
 
+	IEnumerator Dammaged(){
+		aniCon.SetBool ("IsDammaged", true);
+		//MonsterCurrentHP -=  ; // 플레이어의 공격력만큼 깍음
+		yield return new WaitForSeconds (0.01f);
+		aniCon.SetBool ("IsDammaged", false);
+	}
+		
+	void OnTriggerEnter (Collider col){
+		if (col.gameObject.tag == ("Weapon")) {
+			Debug.Log ("hit");
+			StartCoroutine(Dammaged ());
+
+			//aniCon.SetBool ("IsDammaged", true);
+			//MonsterCurrentHP -=1 ;
+		}
+
+	}
 
 	
 	// Update is called once per frame
@@ -153,6 +171,7 @@ public class MonsterManager : MonoBehaviour {
 			agent.Resume ();
 
 		}
+			
 
 		if (MonsterCurrentHP <= 0){
 			//new WaitForSeconds (5f);
@@ -174,6 +193,8 @@ public class MonsterManager : MonoBehaviour {
 			//Instantiate (ThisMonster, LivingZone.transform.position, LivingZone.transform.rotation); // 리스폰
 			//enabled = false;
 		}
+
+
 			
 	}
 }

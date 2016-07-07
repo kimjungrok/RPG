@@ -1948,7 +1948,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 189362}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -1993,12 +1993,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba68c908353d02140aa8c346e0ef0de8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisMonster: {fileID: 189362}
   col: {fileID: 6513374}
   Dir: {x: 0, y: 0, z: 0}
   LookDistan: 210
   random: 10
-  LivingZone: {fileID: 105108, guid: 26b670d2883da7a47a33fbcad713c836, type: 2}
   MonsterMaxHP: 70
   MonsterCurrentHP: 70
   DropItem: {fileID: 105108, guid: 26b670d2883da7a47a33fbcad713c836, type: 2}
