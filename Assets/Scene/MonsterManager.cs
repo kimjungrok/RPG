@@ -81,12 +81,20 @@ public class MonsterManager : MonoBehaviour {
 	void OnTriggerEnter (Collider col){
 		if (col.gameObject.tag == ("Weapon")) {
 			Debug.Log ("hit");
+			StartCoroutine (GIGIGIG ());
 			StartCoroutine(Dammaged ());
+
 
 			//aniCon.SetBool ("IsDammaged", true);
 			//MonsterCurrentHP -=1 ;
 		}
 
+	}
+
+	IEnumerator GIGIGIG(){
+		Time.timeScale = 0.15f;
+		yield return new WaitForSeconds(0.02f);
+		Time.timeScale = 1;
 	}
 
 	
