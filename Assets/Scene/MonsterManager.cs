@@ -72,17 +72,34 @@ public class MonsterManager : MonoBehaviour {
 	}
 
 	IEnumerator Dammaged(){
+
 		aniCon.SetBool ("IsDammaged", true);
 		//MonsterCurrentHP -=  ; // 플레이어의 공격력만큼 깍음
 		yield return new WaitForSeconds (0.01f);
 		aniCon.SetBool ("IsDammaged", false);
+	}
+
+
+	IEnumerator Dammaged2(){
+
+		aniCon.SetBool ("IsDammaged2", true);
+		//MonsterCurrentHP -=  ; // 플레이어의 공격력만큼 깍음
+		yield return new WaitForSeconds (0.01f);
+		aniCon.SetBool ("IsDammaged2", false);
 	}
 		
 	void OnTriggerEnter (Collider col){
 		if (col.gameObject.tag == ("Weapon")) {
 			Debug.Log ("hit");
 			StartCoroutine (GIGIGIG ());
-			StartCoroutine(Dammaged ());
+			AttackTpyeONEorTwo = Random.Range (-10, 10);
+
+			if (AttackTpyeONEorTwo >= 0) {
+				StartCoroutine (Dammaged ());
+			}
+			if (AttackTpyeONEorTwo < 0) {
+				StartCoroutine (Dammaged2 ());
+			}
 
 
 			//aniCon.SetBool ("IsDammaged", true);
@@ -91,7 +108,7 @@ public class MonsterManager : MonoBehaviour {
 
 	}
 
-	IEnumerator GIGIGIG(){
+	IEnumerator GIGIGIG(){ // 타격감을위한경직
 		Time.timeScale = 0.15f;
 		yield return new WaitForSeconds(0.02f);
 		Time.timeScale = 1;
@@ -111,7 +128,7 @@ public class MonsterManager : MonoBehaviour {
 			agent.SetDestination (vecMovePos);
 			aniCon.SetBool ("IsRun", true);
 			agent.Resume ();
-			if (Vector3.Distance (vecMovePos, transform.position) <= 10) {
+			if (Vector3.Distance (vecMovePos, transform.position) <= 3) {
 				aniCon.SetBool ("IsRun", false);
 				aniCon.SetBool ("IsIdle", true);
 
