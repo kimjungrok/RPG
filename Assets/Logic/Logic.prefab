@@ -39,28 +39,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79bcb9683960e934c87773a44a095f2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabBarUI: {fileID: 149452, guid: 65ae8ba772c31c54088565e6461a26f3, type: 2}
-  preSceneFade: {fileID: 123304, guid: eb35521c19e75964b8c40bc11edddcb5, type: 2}
-  transStartPosInNewGame: {fileID: 490150, guid: 39f739b5ed069e648bdc44e6afa9c4c1,
-    type: 2}
+  prefabUIBar: {fileID: 149452, guid: 65ae8ba772c31c54088565e6461a26f3, type: 2}
+  prefabSceneFade: {fileID: 123304, guid: eb35521c19e75964b8c40bc11edddcb5, type: 2}
+  prefabUISaveLoad: {fileID: 121038, guid: 8cd843c1a1fe3a5498f29bbc22ecbff3, type: 2}
   listStage:
   - type: 0
     stageName: "\uCD08\uBCF4\uC874"
     sceneName: SceneStage1_Normal
+    transDefaultStartingPos: {fileID: 490150, guid: 39f739b5ed069e648bdc44e6afa9c4c1,
+      type: 2}
   - type: 1
     stageName: "\uCD08\uBCF4\uBCF4\uC2A4\uC874"
     sceneName: SceneStage1_Boss
+    transDefaultStartingPos: {fileID: 481252, guid: 3e408e5cf87c3e944af4d29b882b4482,
+      type: 2}
   - type: 0
     stageName: "\uC219\uB828\uC874"
     sceneName: SceneStage2_Normal
+    transDefaultStartingPos: {fileID: 490644, guid: d9ecfa53a3471404ba5b78ce496dd679,
+      type: 2}
   - type: 1
     stageName: "\uC219\uB828\uBCF4\uC2A4\uC874"
     sceneName: SceneStage2_Boss
+    transDefaultStartingPos: {fileID: 467164, guid: 40970789a7a8ccd4392352c25289b2f8,
+      type: 2}
   - type: 0
     stageName: "\uCD08\uBCF4\uC8742"
     sceneName: SceneStage1_Normal2
+    transDefaultStartingPos: {fileID: 410932, guid: d1c565d2863557340ae47424f2af180e,
+      type: 2}
   listJob:
   - job: 0
+    jobName: "\uC804\uC0AC"
     jopPrefab: {fileID: 120602, guid: 97c666e3d8b0ea845885f64b74ee59d5, type: 2}
     listSkill: []
     maxLevel: 20
