@@ -1895,6 +1895,7 @@ MonoBehaviour:
   col: {fileID: 6574512}
   Dir: {x: 0, y: 0, z: 0}
   LookDistan: 0
+  effect: {fileID: 100004, guid: a89abc0d2591545288f4c041059ae633, type: 2}
   random: 0
   MonsterMaxHP: 70
   MonsterCurrentHP: 70

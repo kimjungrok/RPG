@@ -13,7 +13,7 @@ public class MonsterManager : MonoBehaviour {
 	public float LookDistan; //시야
 
 	//public Ray ray;
-
+	public GameObject effect; // 피격시 이펙트
 
 	public float random; //움직이는 랜덤방향
 
@@ -91,14 +91,19 @@ public class MonsterManager : MonoBehaviour {
 	void OnTriggerEnter (Collider col){
 		if (col.gameObject.tag == ("Weapon")) {
 			Debug.Log ("hit");
-			StartCoroutine (GIGIGIG ());
+			//StartCoroutine (GIGIGIG ());
+
+			Instantiate(effect, col.transform.position, col.transform.rotation);
+
 			AttackTpyeONEorTwo = Random.Range (-10, 10);
 
 			if (AttackTpyeONEorTwo >= 0) {
-				StartCoroutine (Dammaged ());
+				//StartCoroutine (Dammaged ());
+				aniCon.SetTrigger ("IsDammagedCast1");
 			}
 			if (AttackTpyeONEorTwo < 0) {
-				StartCoroutine (Dammaged2 ());
+				//StartCoroutine (Dammaged2 ());
+				aniCon.SetTrigger ("IsDammagedCast2");
 			}
 
 

@@ -87,7 +87,6 @@ public class NewFirePattern : MonoBehaviour {
 					Instantiate (Bullet1, FirePointTransform.position, FirePointTransform.rotation);
 					yield return new WaitForSeconds (1 / fps1);
 
-
 					Instantiate (Bullet2, FirePointTransform.position, FirePointTransform.rotation);
 					yield return new WaitForSeconds (1 / fps2);
 
