@@ -9,8 +9,9 @@ public class Job  {
     public enum JOB{ WARRIOR, ARCHER } // 직업 정보
 
     public JOB job;
-    public GameObject jopPrefab;       // 직업 프리팹
-    public List<Skill> listSkill;       // 스킬 정보
+    public string jobName;                  // 직업 이름
+    public GameObject jopPrefab;            // 직업 프리팹
+    public List<Skill> listSkill;           // 스킬 정보
 
     public int maxLevel = 20;               // 최대 레벨
 

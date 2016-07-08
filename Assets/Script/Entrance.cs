@@ -17,7 +17,7 @@ public class Entrance : MonoBehaviour {
     {
         if (colOther.CompareTag("Player"))
         {
-            gm.MoveStage(indexMoveStage, transPlayerInNextStage);
+            gm.MoveStage(indexMoveStage, transPlayerInNextStage.position);
         }
     }
 
