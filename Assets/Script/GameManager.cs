@@ -11,20 +11,22 @@ public class GameManager : MonoBehaviour {
 
     public enum FADE { IN, OUT }
     public const string strLoadingSceneName = "SceneStageLoading";
-    public GameObject prefabBarUI;
-    public GameObject preSceneFade;
-    public Transform transStartPosInNewGame;
+    public GameObject prefabUIBar;
+    public GameObject prefabSceneFade;
+    public GameObject prefabUISaveLoad;
     public List<Stage> listStage;
     public List<Job> listJob;
     
     private Stage curStage; // 현재 Stage
     private Job.JOB jobNewSelected = Job.JOB.WARRIOR;// 선택한 직업
     private GameObject objPlayer;   // 생성한 플레이어 오브젝트
-    private GameObject objBarUI;    // 생성한 Bar UI;
+    private GameObject objUIBar;    // 생성한 Bar UI;
     private float fadeTime = 0.5f;
     private List<SaveInfo> listSaveInfo;
-    private const string SAVE_PATH = "/Save";
-    private const string SAVE_EXTENTION = "sav";
+    private const string SAVE_PATH = "/Save/";
+    private const string SAVE_EXTENTION = ".sav";
+    private GameObject objUISaveLoad;
+
     private static GameManager m_instance;
     public static GameManager instance
     {
@@ -71,10 +73,10 @@ public class GameManager : MonoBehaviour {
         objPlayer = Instantiate(prefab);
         DontDestroyOnLoad(objPlayer);
     }
-    public void MoveStage(int indexStage, Transform transStartPos)
+    public void MoveStage(int indexStage, Vector3 vecStartPos)
     {
         curStage = listStage[indexStage];
-        StartCoroutine(LoadStage(curStage.sceneName, transStartPos));
+        StartCoroutine(LoadStage(curStage.sceneName, vecStartPos));
     }
     public Job getJobInfo(Job.JOB job)
     {
@@ -84,22 +86,30 @@ public class GameManager : MonoBehaviour {
     {
         return listJob[(int)jobNewSelected];
     }
-    public GameObject getObjPlayer()
+    public GameObject getPlayerObject()
     {
         return objPlayer;
     }
-    public void StartNewGame(int indexStage = 0) // 새 게임 시작
+    public Player getPlayerInfo()
     {
-        if(objPlayer != null)
+        return objPlayer.GetComponent<Player>();
+    }
+    public void StartNewGame(int indexStage) // 새 게임 시작
+    {
+        StartNewGame(0, listStage[indexStage].transDefaultStartingPos.position);
+    }
+    public void StartNewGame(int indexStage, Vector3 pos)
+    {
+        if (objPlayer != null)
         {
             Destroy(objPlayer);
             objPlayer = null;
         }
         CreateNewPlayer();
-        objBarUI = Instantiate(prefabBarUI);
-        objBarUI.SetActive(false);
-        DontDestroyOnLoad(objBarUI);
-        MoveStage(indexStage, transStartPosInNewGame);
+        objUIBar = Instantiate(prefabUIBar);
+        objUIBar.SetActive(false);
+        DontDestroyOnLoad(objUIBar);
+        MoveStage(indexStage, pos);
     }
 
     public void ExitGame() // 게임 종료
@@ -107,11 +117,11 @@ public class GameManager : MonoBehaviour {
         Application.Quit(); 
     }
 
-    IEnumerator LoadStage(string sceneName, Transform transPlayerPos)
+    IEnumerator LoadStage(string sceneName, Vector3 vecPlayerPos)
     {
         Time.timeScale = 0f;
-        objBarUI.SetActive(false);
-        GameObject objFadeCanvas = Instantiate(preSceneFade);
+        objUIBar.SetActive(false);
+        GameObject objFadeCanvas = Instantiate(prefabSceneFade);
         DontDestroyOnLoad(objFadeCanvas);
         Image img = objFadeCanvas.GetComponentInChildren<Image>();
 
@@ -122,10 +132,10 @@ public class GameManager : MonoBehaviour {
         { 
             yield return null;
         }
-        objPlayer.transform.position = transPlayerPos.position;
+        objPlayer.transform.position = vecPlayerPos;        
         yield return FadeEffect(FADE.IN, img);
 
-        objBarUI.SetActive(true); 
+        objUIBar.SetActive(true); 
                
         Destroy(objFadeCanvas);
         Time.timeScale = 1f;
@@ -157,24 +167,38 @@ public class GameManager : MonoBehaviour {
     }
     public SaveInfo getSaveInfo() // 현재 플레이어의 정보를  저장정보로 얻기
     {
-        return null;
+        if (objPlayer == null)
+            return null;
+
+        SaveInfo info = new SaveInfo();
+        Player playerInfo = getPlayerInfo();
+
+        System.DateTime time = System.DateTime.Now;
+        string strDate = time.Year.ToString() + "y " + time.Month.ToString() + "m " + time.Day.ToString() + "d ";
+        string strTime = time.Hour.ToString() + "h " + time.Minute.ToString() + "m " + time.Second.ToString() + "s";
+        string saveName = strDate + " " + strTime;
+
+        info.setInfo(saveName, playerInfo.hp, playerInfo.sp, playerInfo.exp, playerInfo.level, jobNewSelected, getCurrentStageInfo().stageName, getCurrentStageInfo().sceneName, playerInfo.transform.position, strDate, strTime);
+
+        return info;
     }
     public List<SaveInfo> getAllSaveInfo() // 플레이어 정보 리스트 불러오기
     {
         listSaveInfo = new List<SaveInfo>();
-        DirectoryInfo d = new DirectoryInfo(Application.persistentDataPath + "/Save");
+
+        DirectoryInfo d = new DirectoryInfo(Application.persistentDataPath + SAVE_PATH);
+
         FileInfo[] fileInfos = d.GetFiles();
 
         foreach(FileInfo file in fileInfos)
         {
-            if (file.Extension.Equals(SAVE_EXTENTION))
+            if (file.Extension.CompareTo(SAVE_EXTENTION) == 0)
             {
-                SaveInfo info = new SaveInfo();
                 BinaryFormatter bf = new BinaryFormatter();
                 FileStream fs = file.Open(FileMode.Open);
                 SaveInfo newInfo = (SaveInfo)bf.Deserialize(fs);
                 fs.Close();
-                listSaveInfo.Add(info);
+                listSaveInfo.Add(newInfo);
             }
         }  
         return listSaveInfo;
@@ -185,21 +209,78 @@ public class GameManager : MonoBehaviour {
         int index = listSaveInfo.IndexOf(info);
         if (index != -1)
         {
-            listSaveInfo.RemoveAt(index);
-            File.Delete(info.saveName);
-        }       
+            listSaveInfo.RemoveAt(index);            
+            File.Delete(Application.persistentDataPath + SAVE_PATH + info.saveName + SAVE_EXTENTION);
+        }
     }
 
-    public void SaveGame(SaveInfo info) // 저장 정보 저장
-    {      
+    public bool SaveGame(SaveInfo info) // 저장 정보 저장
+    {
+        // 디렉토리 검사
+        if (!Directory.Exists(Application.persistentDataPath + SAVE_PATH))
+        {
+            Directory.CreateDirectory(Application.persistentDataPath + SAVE_PATH);
+        }
         BinaryFormatter bf = new BinaryFormatter();        
-        FileStream file = File.Create(Application.persistentDataPath + "/Save/"+ info.saveName +".sav");
+        FileStream file = File.Create(Application.persistentDataPath + SAVE_PATH + info.saveName + SAVE_EXTENTION);
         bf.Serialize(file, info);
         file.Close();
+        return true;
     }
 
     public bool LoadGame(SaveInfo info) // 불러오기,  게임 다시 시작
-    {        
+    {
+        Stage stage;
+        int index;
+        if(!getStage(info.stageSceneName, out stage, out index))
+        {
+            return false;
+        }
+        StartNewGame(index, new Vector3(info.posX, info.posY, info.posZ));
+        return true;
+    }
+    public bool isOpenUISaveLoad()
+    {
+        if (objUISaveLoad == null)
+            return false;
+        return objUISaveLoad.activeInHierarchy;
+    }
+    public void OpenUISaveLoad(UISaveLoadInfo.MODE mode, UISaveLoadInfo.OnCloseEvent addClosedEvent)
+    {
+        Time.timeScale = 0f;
+        if (objUISaveLoad == null)
+        {
+            objUISaveLoad = Instantiate(prefabUISaveLoad);
+
+        }
+        objUISaveLoad.GetComponent<UISaveLoadInfo>().Open(mode);
+        if(addClosedEvent != null)
+            objUISaveLoad.GetComponent<UISaveLoadInfo>().OnClose += addClosedEvent;
+    }
+
+    public void CloseUISaveLoad()
+    {
+        if (objUISaveLoad == null)
+            return;
+        objUISaveLoad.GetComponent<UISaveLoadInfo>().Close();
+        Time.timeScale = 0f;
+    }
+
+    public bool getStage(string sceneName, out Stage outStage, out int index)
+    {
+        int count = 0;
+        foreach(Stage stage in listStage)
+        {
+            if(stage.sceneName.CompareTo(sceneName) == 0)
+            {
+                outStage = stage;
+                index = count;
+                return true;
+            }
+            count++;
+        }
+        outStage = new Stage();
+        index = -1;
         return false;
     }
 }

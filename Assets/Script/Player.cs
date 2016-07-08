@@ -82,7 +82,7 @@ public class Player : MonoBehaviour {
         }
     }
 
-    public int Sp // 현재 Sp를 제어 get,set
+    public int sp // 현재 Sp를 제어 get,set
     {
         get
         {
@@ -168,7 +168,7 @@ public class Player : MonoBehaviour {
         }
     }
 
-    public int lv //현재 레벨을 제어. get, set
+    public int level //현재 레벨을 제어. get, set
     {
         get
         {
@@ -243,7 +243,7 @@ public class Player : MonoBehaviour {
 
         // 현재 Hp, Sp 회복
         hp = hpMax;
-        Sp = spMax;
+        sp = spMax;
 
         // 레벨에 따른 메인스킬 변경
         setMainSkill();
@@ -260,7 +260,7 @@ public class Player : MonoBehaviour {
     private void setMainSkill()
     {
         // 레벨에 따른 메인스킬 변경
-        m_curSkill = m_Job.getSkill(lv);
+        m_curSkill = m_Job.getSkill(level);
     }
 
     private void calculateExp() // 현재 경험치 계산. 레벨업에 영향
@@ -271,5 +271,6 @@ public class Player : MonoBehaviour {
             LevelUp(); // 레벨업 한번
         }
     }
+
 
 }

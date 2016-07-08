@@ -24,12 +24,11 @@ public class UISaveInfoNode : MonoBehaviour {
     public void setSaveInfo(SaveInfo saveInfo) // 출력 정보
     {
         this.saveInfo = saveInfo;
-        string total = GameManager.instance.getJobInfo(saveInfo.job).jobName;
+        string total = saveInfo.saveName + "\nLv." + saveInfo.level;
 
-        // 직업 level 스테이지 날짜 시간
-        total += " Lv." + saveInfo.level;
-        total += " " + GameManager.instance.listStage[saveInfo.stageNumber].stageName;
-        total += " " + saveInfo.date;
+        total += " " + GameManager.instance.getJobInfo(saveInfo.job).jobName;         
+        total += " " + saveInfo.stageName;
+        total += "\n" + saveInfo.date;
         total += " " + saveInfo.time;
 
         txtInfo.text = total;
