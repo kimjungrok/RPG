@@ -1974,7 +1974,7 @@ MonoBehaviour:
   random: 35
   MonsterMaxHP: 70
   MonsterCurrentHP: 70
-  DropItem: {fileID: 105108, guid: 26b670d2883da7a47a33fbcad713c836, type: 2}
+  DropItem: {fileID: 192170, guid: 57ea84e04191d4d459d268ca7fc5bac8, type: 2}
   KillExp: 99
   AttackPower: 9
   AttackColltime: 0.3
