@@ -13,7 +13,7 @@ public class MonsterManager : MonoBehaviour {
 	public float LookDistan; //시야
 
 	//public Ray ray;
-
+	public GameObject effect; // 피격시 이펙트
 
 	public float random; //움직이는 랜덤방향
 
@@ -23,6 +23,7 @@ public class MonsterManager : MonoBehaviour {
 
 	private Vector3 vecSpawnPos; // 몬스터의 생성위치
 	private Vector3 vecMovePos;// 해당 몬스터의 이동지점
+	private Vector3 RespawnPosOrigin;
 
 	public float MonsterMaxHP; //몬스터의 HP
 	public float MonsterCurrentHP;
@@ -45,6 +46,7 @@ public class MonsterManager : MonoBehaviour {
 		aniCon = GetComponent<Animator> ();
 		vecMovePos = vecSpawnPos;
 		StartCoroutine (RunAway(10));
+		RespawnPosOrigin = vecSpawnPos;
 
 		enabled = true;
 
@@ -55,7 +57,7 @@ public class MonsterManager : MonoBehaviour {
 	}
 	IEnumerator Respawn(float Respawntime){
 		yield return new WaitForSeconds (Respawntime);
-		Instantiate (RespawnMonster, transform.position, transform.rotation);
+		Instantiate (RespawnMonster, RespawnPosOrigin, transform.rotation);
 	}
 
 	IEnumerator RunAway(float time){
@@ -67,9 +69,55 @@ public class MonsterManager : MonoBehaviour {
 
 	IEnumerator ItemDrop(){
 		yield return new WaitForSeconds (1);
+	}
+
+	IEnumerator Dammaged(){
+
+		aniCon.SetBool ("IsDammaged", true);
+		//MonsterCurrentHP -=  ; // 플레이어의 공격력만큼 깍음
+		yield return new WaitForSeconds (0.01f);
+		aniCon.SetBool ("IsDammaged", false);
+	}
+
+
+	IEnumerator Dammaged2(){
+
+		aniCon.SetBool ("IsDammaged2", true);
+		//MonsterCurrentHP -=  ; // 플레이어의 공격력만큼 깍음
+		yield return new WaitForSeconds (0.01f);
+		aniCon.SetBool ("IsDammaged2", false);
+	}
+		
+	void OnTriggerEnter (Collider col){
+		if (col.gameObject.tag == ("Weapon")) {
+			Debug.Log ("hit");
+			//StartCoroutine (GIGIGIG ());
+
+			Instantiate(effect, col.transform.position, col.transform.rotation);
+
+			AttackTpyeONEorTwo = Random.Range (-10, 10);
+
+			if (AttackTpyeONEorTwo >= 0) {
+				//StartCoroutine (Dammaged ());
+				aniCon.SetTrigger ("IsDammagedCast1");
+			}
+			if (AttackTpyeONEorTwo < 0) {
+				//StartCoroutine (Dammaged2 ());
+				aniCon.SetTrigger ("IsDammagedCast2");
+			}
+
+
+			//aniCon.SetBool ("IsDammaged", true);
+			//MonsterCurrentHP -=1 ;
+		}
 
 	}
 
+	IEnumerator GIGIGIG(){ // 타격감을위한경직
+		Time.timeScale = 0.15f;
+		yield return new WaitForSeconds(0.02f);
+		Time.timeScale = 1;
+	}
 
 	
 	// Update is called once per frame
@@ -85,7 +133,7 @@ public class MonsterManager : MonoBehaviour {
 			agent.SetDestination (vecMovePos);
 			aniCon.SetBool ("IsRun", true);
 			agent.Resume ();
-			if (Vector3.Distance (vecMovePos, transform.position) <= 10) {
+			if (Vector3.Distance (vecMovePos, transform.position) <= 3) {
 				aniCon.SetBool ("IsRun", false);
 				aniCon.SetBool ("IsIdle", true);
 
@@ -153,6 +201,7 @@ public class MonsterManager : MonoBehaviour {
 			agent.Resume ();
 
 		}
+			
 
 		if (MonsterCurrentHP <= 0){
 			//new WaitForSeconds (5f);
@@ -174,6 +223,8 @@ public class MonsterManager : MonoBehaviour {
 			//Instantiate (ThisMonster, LivingZone.transform.position, LivingZone.transform.rotation); // 리스폰
 			//enabled = false;
 		}
+
+
 			
 	}
 }

@@ -131,6 +131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 100
   rigid: {fileID: 0}
+  DesTime: 3
   Player: {fileID: 0}
 --- !u!114 &11488780
 MonoBehaviour:

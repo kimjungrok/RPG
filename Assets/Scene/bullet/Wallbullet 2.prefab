@@ -246,6 +246,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 35
   rigid: {fileID: 0}
+  DesTime: 3
   Player: {fileID: 0}
 --- !u!114 &11430798
 MonoBehaviour:
@@ -260,6 +261,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 15
   rigid: {fileID: 0}
+  DesTime: 3
   Player: {fileID: 0}
 --- !u!114 &11477402
 MonoBehaviour:
@@ -274,6 +276,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 35
   rigid: {fileID: 0}
+  DesTime: 3
   Player: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:

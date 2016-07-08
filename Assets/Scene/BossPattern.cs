@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class BossPattern : MonoBehaviour {
 
+	/*
 	public GameObject Pattern1;
 	public float WaitingTime1;
 	public GameObject Pattern2;
@@ -22,13 +23,14 @@ public class BossPattern : MonoBehaviour {
 	public float WaitingTime8;
 	public GameObject Pattern9;
 	public float WaitingTime9;
-
+*/
 	Animator aniCon;
 
 	public GameObject NextBoss;
 
 
-	//public List<GameObject> ListPattern;
+	public List<MonsterPatternInfo> listPattern;
+
 	//[Range(0,1)]
 	//public float testHP;
 
@@ -51,7 +53,7 @@ public class BossPattern : MonoBehaviour {
 		Pattern7.gameObject.SetActive (false);
 		Pattern8.gameObject.SetActive (false);
 		Pattern9.gameObject.SetActive (false);
-*/
+  */
 
 		StartCoroutine (BossPatternManager1(5f));
 		aniCon = GetComponent<Animator> ();
@@ -70,14 +72,16 @@ public class BossPattern : MonoBehaviour {
 	IEnumerator BossPatternManager1(float RegTime)
 	{
 		//if (BossHPPercent >= 0.7f) { //for문 써서 수정하려면 패턴 담는 공간이 없어짐
+
+		foreach (MonsterPatternInfo info in listPattern) {
+			
+			yield return new WaitForSeconds (info.waitTime);
+			aniCon.SetTrigger ("IsBossPatternCast");
+			Instantiate (info.objPattern, info.objPattern.transform.position, info.objPattern.transform.rotation);
+		}
+		/*
 		yield return new WaitForSeconds (WaitingTime1);
 
-		/*
-			for (int i; i < 11; i++) {
-				if (i > 9) {
-					i = 1;
-				}
-			}*/
 		aniCon.SetBool ("IsBossPattern", true);
 		Instantiate (Pattern1, Pattern1.transform.position, Pattern1.transform.rotation);
 		yield return new WaitForSeconds (1f);
@@ -149,7 +153,7 @@ public class BossPattern : MonoBehaviour {
 		yield return new WaitForSeconds (1f);
 		aniCon.SetBool ("IsBossPattern", false);
 		//Pattern9.gameObject.SetActive (true);
-
+		*/
 		StartCoroutine (BossPatternManager1 (10f));
 	}
 
