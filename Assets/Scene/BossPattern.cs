@@ -26,23 +26,18 @@ public class BossPattern : MonoBehaviour {
 */
 	Animator aniCon;
 
-	public GameObject NextBoss;
+	//public GameObject NextBoss;
 
-
+	public float BossHPPercent;
 	public List<MonsterPatternInfo> listPattern;
-
+	public List<MonsterPatternInfo> listPattern2;
 	//[Range(0,1)]
 	//public float testHP;
 
-	float BossHPPercent;
-
 
 	// Use this for initialization
-	void Start () {
-		BossHPPercent = GetComponent<MonsterManager> ().MonsterCurrentHP / GetComponent<MonsterManager> ().MonsterMaxHP;
-
-
-
+	void Start () {		
+		BossHPPercent = getHPPercent ();
 		/*
 		Pattern1.gameObject.SetActive (false);
 		Pattern2.gameObject.SetActive (false);
@@ -54,7 +49,6 @@ public class BossPattern : MonoBehaviour {
 		Pattern8.gameObject.SetActive (false);
 		Pattern9.gameObject.SetActive (false);
   */
-
 		StartCoroutine (BossPatternManager1(5f));
 		aniCon = GetComponent<Animator> ();
 	}
@@ -68,17 +62,50 @@ public class BossPattern : MonoBehaviour {
 			enabled = false;
 		}
 	}*/
-
+	private float getHPPercent(){
+		return GetComponent<MonsterManager> ().MonsterCurrentHP / GetComponent<MonsterManager> ().MonsterMaxHP;
+	}
 	IEnumerator BossPatternManager1(float RegTime)
 	{
-		//if (BossHPPercent >= 0.7f) { //for문 써서 수정하려면 패턴 담는 공간이 없어짐
+		if (BossHPPercent >= 0.5f) {
 
+			foreach (MonsterPatternInfo info in listPattern) {				
+
+				yield return new WaitForSeconds (info.waitTime);
+
+				if (BossHPPercent < 0.5f) {					
+					break;
+				}
+
+				aniCon.SetTrigger ("IsBossPatternCast");
+				foreach (GameObject obj in info.listObjPattern) {
+					Instantiate (obj, obj.transform.position, obj.transform.rotation);
+				}
+			}
+
+		} else if (BossHPPercent  < 0.5f) {
+			transform.localScale = new Vector3 (50, 50, 50);
+			foreach (MonsterPatternInfo info2 in listPattern2) {				
+				yield return new WaitForSeconds (info2.waitTime);
+				aniCon.SetTrigger ("IsBossPatternCast");
+				foreach (GameObject obj in info2.listObjPattern) {
+					Instantiate (obj, obj.transform.position, obj.transform.rotation);
+				}
+			}
+		}
+
+		/*
 		foreach (MonsterPatternInfo info in listPattern) {
-			
+
 			yield return new WaitForSeconds (info.waitTime);
 			aniCon.SetTrigger ("IsBossPatternCast");
 			Instantiate (info.objPattern, info.objPattern.transform.position, info.objPattern.transform.rotation);
+
+			if (BossHPPercent < 0.5f) {
+				StopCoroutine (BossPatternManager1(5f));
 		}
+	}*/
+
 		/*
 		yield return new WaitForSeconds (WaitingTime1);
 
@@ -210,9 +237,9 @@ public class BossPattern : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-
+		BossHPPercent = getHPPercent ();
 		if (BossHPPercent <= 0) {
-			Instantiate (NextBoss, this.gameObject.transform.position, this.gameObject.transform.rotation);
+			//Instantiate (NextBoss, this.gameObject.transform.position, this.gameObject.transform.rotation);
 			Destroy (gameObject, 0.5f);
 
 		}

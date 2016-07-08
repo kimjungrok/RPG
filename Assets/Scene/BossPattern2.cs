@@ -56,63 +56,54 @@ public class BossPattern2 : MonoBehaviour {
 
 	IEnumerator BossPatternManager2(float RegTime){
 		yield return new WaitForSeconds (WaitingTime1);
-		aniCon.SetBool ("IsBossPattern", true);
+		aniCon.SetTrigger ("IsBossPatternCast");
 		Instantiate (Pattern1, Pattern1.transform.position, Pattern1.transform.rotation);
 		Instantiate (Pattern3, Pattern3.transform.position, Pattern3.transform.rotation);
-		yield return new WaitForSeconds (1f);
-		aniCon.SetBool ("IsBossPattern", false);
+
 
 
 		yield return new WaitForSeconds (WaitingTime2);
 
-		aniCon.SetBool ("IsBossPattern", true);
+		aniCon.SetTrigger ("IsBossPatternCast");
 		Instantiate (Pattern2, Pattern2.transform.position, Pattern2.transform.rotation);
 		Instantiate (Pattern3, Pattern3.transform.position, Pattern3.transform.rotation);
-		yield return new WaitForSeconds (1f);
-		aniCon.SetBool ("IsBossPattern", false);
+
 
 		yield return new WaitForSeconds (WaitingTime3);
-		aniCon.SetBool ("IsBossPattern", true);
+		aniCon.SetTrigger ("IsBossPatternCast");
 		Instantiate (Pattern1, Pattern1.transform.position, Pattern1.transform.rotation);
 		Instantiate (Pattern4, Pattern4.transform.position, Pattern4.transform.rotation);
-		yield return new WaitForSeconds (1f);
-		aniCon.SetBool ("IsBossPattern", false);
 
 
 		yield return new WaitForSeconds (WaitingTime4);
 
-		aniCon.SetBool ("IsBossPattern", true);
+		aniCon.SetTrigger ("IsBossPatternCast");
 		Instantiate (Pattern2, Pattern2.transform.position, Pattern2.transform.rotation);
 		Instantiate (Pattern6, Pattern6.transform.position, Pattern6.transform.rotation);
-		yield return new WaitForSeconds (1f);
-		aniCon.SetBool ("IsBossPattern", false);
+
 
 
 
 		yield return new WaitForSeconds (WaitingTime5);
-		aniCon.SetBool ("IsBossPattern", true);
+		aniCon.SetTrigger ("IsBossPatternCast");
 		Instantiate (Pattern5, Pattern5.transform.position, Pattern5.transform.rotation);
-		yield return new WaitForSeconds (1f);
-		aniCon.SetBool ("IsBossPattern", false);
+
 
 		yield return new WaitForSeconds (WaitingTime6);
-		aniCon.SetBool ("IsBossPattern", true);
+		aniCon.SetTrigger ("IsBossPatternCast");
 		Instantiate (Pattern7, Pattern7.transform.position, Pattern7.transform.rotation);
-		yield return new WaitForSeconds (1f);
-		aniCon.SetBool ("IsBossPattern", false);
+
 
 		yield return new WaitForSeconds (WaitingTime7);
-		aniCon.SetBool ("IsBossPattern", true);
+		aniCon.SetTrigger ("IsBossPatternCast");
 		Instantiate (Pattern8, Pattern8.transform.position, Pattern8.transform.rotation);
-		yield return new WaitForSeconds (1f);
-		aniCon.SetBool ("IsBossPattern", false);
+
 
 		yield return new WaitForSeconds (WaitingTime8);
-		aniCon.SetBool ("IsBossPattern", true);
+		aniCon.SetTrigger ("IsBossPatternCast");
 		Instantiate (Pattern9, Pattern9.transform.position, Pattern9.transform.rotation);
 		Instantiate (Pattern3, Pattern3.transform.position, Pattern3.transform.rotation);
-		yield return new WaitForSeconds (1f);
-		aniCon.SetBool ("IsBossPattern", false);
+
 
 		StartCoroutine (BossPatternManager2 (5f));
 	}

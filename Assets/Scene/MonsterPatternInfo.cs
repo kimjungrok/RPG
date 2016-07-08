@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 [System.Serializable]
 public class MonsterPatternInfo  {
-	public GameObject objPattern;
 	public List<GameObject> listObjPattern;
 	public float waitTime = 10f;
-
 }
