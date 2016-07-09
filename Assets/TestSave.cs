@@ -18,7 +18,6 @@ public class TestSave : MonoBehaviour {
             }
             else
             {
-                Time.timeScale = 0f;
                 GameManager.instance.OpenUISaveLoad(UISaveLoadInfo.MODE.SAVELOAD, null);
             }
                 
