@@ -10,6 +10,7 @@ public class TestSave : MonoBehaviour {
 
     void Update()
     {
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (GameManager.instance.isOpenUISaveLoad())
@@ -20,9 +21,6 @@ public class TestSave : MonoBehaviour {
             {
                 GameManager.instance.OpenUISaveLoad(UISaveLoadInfo.MODE.SAVELOAD, null);
             }
-                
-
         }
-    }
-   
+    }   
 }

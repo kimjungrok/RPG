@@ -3,6 +3,10 @@ using System.Collections;
 
 public class MonsterManager : MonoBehaviour {
 
+
+    public delegate void OnDeathEvent();
+    public event OnDeathEvent OnDeath;
+
 	NavMeshAgent agent;
 	GameObject player; // 플레이어오브젝트
 	//public GameObject ThisMonster; //이 몬스터
@@ -29,14 +33,11 @@ public class MonsterManager : MonoBehaviour {
 	public float MonsterCurrentHP;
 	public GameObject DropItem; //몬스터가 드랍하는 아이템
 	public int KillExp; //죽였을시 얻는 경험치
-	public float AttackPower; //몬스터의 공격력
+	public int AttackPower; //몬스터의 공격력
 
 	public float AttackColltime = 0.3f; //몬스터가 공격후 플레이어가 대미지 판정을 처리하기까지의 시간
 	//public int MoveSpeed; // naviMeshAgent에서 관리하므로 필요 없음
-	public bool isChase = false;
-
-	public float Respawntime;
-	public GameObject RespawnMonster;
+	public bool isChase = false;    
 
 
 
@@ -55,7 +56,7 @@ public class MonsterManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		vecSpawnPos = transform.position;
-		player = GameObject.FindGameObjectWithTag ("Player");
+        player = GameObject.FindGameObjectWithTag("Player");
 		agent = GetComponent<NavMeshAgent> ();
 		aniCon = GetComponent<Animator> ();
 		vecMovePos = vecSpawnPos;
@@ -114,33 +115,27 @@ public class MonsterManager : MonoBehaviour {
 		//MonsterCurrentHP -=  ; // 플레이어의 공격력만큼 깍음
 		yield return new WaitForSeconds (0.01f);
 		aniCon.SetBool ("IsDammaged2", false);
+
 	}*/
-		
 	void OnTriggerEnter (Collider col){
+
 		if (col.gameObject.tag == ("Weapon")) {
-			Debug.Log ("hit");
+
 			//StartCoroutine (GIGIGIG ());
-
-			Instantiate(effect, col.transform.position, col.transform.rotation);
-
+           
 			AttackTpyeONEorTwo = Random.Range (-10, 10);
-
 			if (AttackTpyeONEorTwo >= 0) {
-				//StartCoroutine (Dammaged ());
 				aniCon.SetTrigger ("IsDammagedCast1");
 			}
 			if (AttackTpyeONEorTwo < 0) {
-				//StartCoroutine (Dammaged2 ());
 				aniCon.SetTrigger ("IsDammagedCast2");
 			}
-
 
 			//aniCon.SetBool ("IsDammaged", true);
 			//MonsterCurrentHP -=1 ;
 		}
-
 	}
-
+    
 	IEnumerator GIGIGIG(){ // 타격감을위한경직
 		Time.timeScale = 0.15f;
 		yield return new WaitForSeconds(0.02f);
@@ -261,6 +256,7 @@ public class MonsterManager : MonoBehaviour {
 			
 
 		if (MonsterCurrentHP <= 0){
+            GameManager.instance.getPlayerInfo().exp += KillExp;
 			//new WaitForSeconds (5f);
 			col.enabled = false;
 			agent.Stop();
@@ -270,8 +266,10 @@ public class MonsterManager : MonoBehaviour {
 			aniCon.SetBool ("IsFarAttack", false);
 			aniCon.SetBool ("IsRun", false);
 			aniCon.SetBool ("IsDie", true);
-			StartCoroutine(Respawn(Respawntime));
-			Instantiate (DropItem, transform.position, transform.rotation); // 2페이즈보스생성 실제로는 dropitem에 넣
+            if (OnDeath != null)
+                OnDeath();
+            if(DropItem != null)
+			    Instantiate (DropItem, transform.position, transform.rotation); // 드랍 아이템 생성
 
 			enabled = false; // 아이템을 한번만 생성하게
 			//NextPattern = Time.time + patternRegTime;
@@ -281,8 +279,10 @@ public class MonsterManager : MonoBehaviour {
 			//Instantiate (ThisMonster, LivingZone.transform.position, LivingZone.transform.rotation); // 리스폰
 			//enabled = false;
 		}
-
-
-			
 	}
+    public void HitforPlayer(Player player)
+    {
+        Debug.Log("Monster가 Player에게 " + AttackPower + " 의 데미지");
+        player.hp -= AttackPower;
+    }
 }

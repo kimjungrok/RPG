@@ -1,16 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class WeaponSetactive : MonoBehaviour {
+public class WeaponSetactive : MonoBehaviour
+{
+    public GameObject player;
 
-	BoxCollider col;
-	public GameObject player;
+    // Use this for initialization
+    void Start()
+    {
 
-	// Use this for initialization
-	void Start () {
-		this.gameObject.SetActive (false);
-	}
+    }
 
+/*
 	IEnumerator WeaponDisable(float DisableTime){
 		yield return new WaitForSeconds (0.05f);
 		this.gameObject.SetActive (false);
@@ -32,4 +33,13 @@ public class WeaponSetactive : MonoBehaviour {
 		col.enabled = false;
 	
 	}
+*/
+
+    void OnTriggerEnter(Collider col)
+    {
+        if (col.transform.CompareTag("Player")) // 플레이어 타격시
+        {
+            transform.root.GetComponent<MonsterManager>().HitforPlayer(col.transform.root.GetComponent<Player>());
+        }
+    }
 }

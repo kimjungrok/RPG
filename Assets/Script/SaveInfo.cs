@@ -18,9 +18,9 @@ public class SaveInfo {
     public int curExp;          // 현재 경험치
     public int level;           // 레벨
     public Job.JOB job;         // 직업
-    public float posX;          // 케릭터 위치       
     public string stageName;         // 스테이지 이름;
     public string stageSceneName;
+    public float posX;          // 케릭터 위치    
     public float posY;          // 위치
     public float posZ;          // 위치
     public string date;         // 날짜 // System.DateTime.Now.ToString("yyyy/MM/dd");

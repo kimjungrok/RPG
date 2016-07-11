@@ -34,7 +34,7 @@ public class SceneMainUILogic : MonoBehaviour {
 
     public void OnClickNewGame() // 새 게임 클릭 시
     {        
-        GameManager.instance.StartNewGame(0, GameManager.instance.listStage[0].transDefaultStartingPos.position);
+        GameManager.instance.StartNewGame(0, null);
     }
 
     public void OnCloseUISaveLoad()

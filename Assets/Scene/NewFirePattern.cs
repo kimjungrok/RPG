@@ -13,7 +13,7 @@ public class NewFirePattern : MonoBehaviour {
 	public float HowLongShootTime;
 	private float StartTime;
 
-	public GameObject Boss;
+	//public GameObject Boss;
 
 	public float fps1 = 10;
 	public float fps2 = 10;
@@ -32,7 +32,7 @@ public class NewFirePattern : MonoBehaviour {
 		//Bullet = GameObject.FindGameObjectWithTag ("bullet");
 		//ShotAngleRange = 9;
 
-		Boss = GameObject.FindGameObjectWithTag ("Boss");
+		//Boss = GameObject.FindGameObjectWithTag ("Boss");
 
 		StartCoroutine (TimeRotation (this.gameObject, 0.01f, 1f));
 

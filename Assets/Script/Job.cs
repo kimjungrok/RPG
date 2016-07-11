@@ -43,9 +43,9 @@ public class Job  {
 
         Stat stat = new Stat();
         stat.requiredExp = (int)(BaserequiredExp * Mathf.Pow(ExpRateofIncrease, (level - 1))); // ex> 100 * 1.1^2
-        stat.maxHP = BaseHp + AddHp * level;    // 맥스 Hp
-        stat.maxSP = BaseSp + AddSp * level;    // 맥스 Sp
-        stat.attackPower = BaseAp + AddAp * level;
+        stat.maxHP = BaseHp + AddHp * (level - 1);    // 맥스 Hp
+        stat.maxSP = BaseSp + AddSp * (level - 1);    // 맥스 Sp
+        stat.attackPower = BaseAp + AddAp * (level - 1);
         stat.hpRegenerate = BaseHpRegen;
         stat.spRegenerate = BaseSpRegen;
 

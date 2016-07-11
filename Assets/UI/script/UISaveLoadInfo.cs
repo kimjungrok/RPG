@@ -6,8 +6,8 @@ using System.Collections.Generic;
 public class UISaveLoadInfo : MonoBehaviour {
 
     public enum MODE { LOAD, SAVELOAD } // 저장, 저장/불러오기 모드
-    public delegate void OnCloseEvent(); // 닫기 이벤트
-    public event OnCloseEvent OnClose;
+    public delegate void OnClosedEvent(); // 닫기 이벤트
+    public event OnClosedEvent OnClosed;
 
     public GameObject objScrollParent;     // 스크롤뷰 내용들의 부모
     public GameObject objNode;
@@ -22,9 +22,9 @@ public class UISaveLoadInfo : MonoBehaviour {
     private SaveInfo curSelectSaveInfo; // 선택한 저장 정보
     private List<GameObject> listBtnSaveInfo = new List<GameObject>();      // 저장 정보 버튼들
     private List<SaveInfo> listSaveInfo = new List<SaveInfo>();             // 저장 정보 들
-    private bool bNewSavePopupOpened = false;
     private MODE mode;
-
+    private List<OnClosedEvent> listCloseEvent = new List<OnClosedEvent>();
+    private float preTimeScale;
     private void Init()
     {
         // UI 초기화
@@ -76,14 +76,17 @@ public class UISaveLoadInfo : MonoBehaviour {
             // 텍스트 정보로 가공하기
             txtCurrentPlayerInfo.text =
                 "Lv." + curSaveInfo.level + " " +
-                GameManager.instance.getJobInfo(curSaveInfo.job).jobName + " " +                
-                curSaveInfo.stageName + " " +
+                GameManager.instance.getJobInfo(curSaveInfo.job).jobName + "\n" +                
+                curSaveInfo.stageName + "\n" +
                 curSaveInfo.date + " " +
                 curSaveInfo.time;
         }
     }
-    public void Open(MODE mode)
+    public void Open(MODE mode, OnClosedEvent closedEvent)
     {
+        preTimeScale = Time.timeScale;
+        Time.timeScale = 0f;
+
         this.mode = mode;
         Init();
         if (mode == MODE.SAVELOAD) // 저장/불러오기 동시
@@ -94,14 +97,26 @@ public class UISaveLoadInfo : MonoBehaviour {
         {
             btnNewSave.gameObject.SetActive(false); // 새 저장 버튼 감추기
         }
-        gameObject.SetActive(true);        
+        if (closedEvent != null)
+        {
+            listCloseEvent.Add(closedEvent);
+            OnClosed += closedEvent;
+        }            
+        gameObject.SetActive(true);  
     }
 
     public void Close()
     {
         gameObject.SetActive(false);
-        if(OnClose != null)
-            OnClose();
+        if(OnClosed != null)
+        {
+            OnClosed();
+            foreach (OnClosedEvent addedEvent in listCloseEvent)
+            {
+                OnClosed -= addedEvent;
+            }
+        }
+        Time.timeScale = preTimeScale; 
     }
 
     public void OnClickNewSave() // 새로 저장 클릭

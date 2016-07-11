@@ -50,7 +50,7 @@ MonoBehaviour:
       type: 2}
   - type: 1
     stageName: "\uCD08\uBCF4\uBCF4\uC2A4\uC874"
-    sceneName: SceneStage1_Boss
+    sceneName: SceneStage1_Boss2
     transDefaultStartingPos: {fileID: 481252, guid: 3e408e5cf87c3e944af4d29b882b4482,
       type: 2}
   - type: 0
@@ -71,8 +71,26 @@ MonoBehaviour:
   listJob:
   - job: 0
     jobName: "\uC804\uC0AC"
-    jopPrefab: {fileID: 120602, guid: 97c666e3d8b0ea845885f64b74ee59d5, type: 2}
-    listSkill: []
+    jopPrefab: {fileID: 183566, guid: a006fea04a6843d48886112f91587d82, type: 2}
+    listSkill:
+    - skillName: "\uC2A4\uD0AC1"
+      skillAnimationName: Skill1
+      damageScale: 1.5
+      requiredSp: 20
+      effect: {fileID: 0}
+      enableLv: 0
+    - skillName: "\uC2A4\uD0AC2"
+      skillAnimationName: Skill2
+      damageScale: 2
+      requiredSp: 21
+      effect: {fileID: 167058, guid: 1625b0df15965450c86850dd6d345e87, type: 2}
+      enableLv: 10
+    - skillName: "\uC2A4\uD0AC3"
+      skillAnimationName: Skill3
+      damageScale: 2.5
+      requiredSp: 22
+      effect: {fileID: 136324, guid: 42bb81c9b4be9804e9ccc20de9c3a321, type: 2}
+      enableLv: 20
     maxLevel: 20
     BaserequiredExp: 100
     ExpRateofIncrease: 1.1
