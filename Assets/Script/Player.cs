@@ -20,7 +20,7 @@ public class Player : MonoBehaviour {
     private int m_Level = 1;          // 현재 레벨 , 기본값 1
     private int m_Experience;         // 현재 경험치
 
-    private Job m_Job;                // 현재 직업 정보(스킬, 레벨별 스탯)
+     private Job m_Job;                // 현재 직업 정보(스킬, 레벨별 스탯)
     private Skill m_curSkill;           // 현재 사용 가능한 메인스킬
     private GameManager gm;
 
