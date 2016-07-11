@@ -26,7 +26,7 @@ public class BossPattern : MonoBehaviour {
 */
 	Animator aniCon;
 
-	public GameObject NextBoss;
+	//public GameObject NextBoss;
 
 
 	public List<MonsterPatternInfo> listPattern;
@@ -77,7 +77,7 @@ public class BossPattern : MonoBehaviour {
 			
 			yield return new WaitForSeconds (info.waitTime);
 			aniCon.SetTrigger ("IsBossPatternCast");
-			Instantiate (info.objPattern, info.objPattern.transform.position, info.objPattern.transform.rotation);
+			Instantiate (info.objPattern, transform.position, info.objPattern.transform.rotation);
 		}
 		/*
 		yield return new WaitForSeconds (WaitingTime1);
@@ -209,6 +209,7 @@ public class BossPattern : MonoBehaviour {
 		}*/
 
 	// Update is called once per frame
+    /*
 	void Update () {
 
 		if (BossHPPercent <= 0) {
@@ -216,5 +217,5 @@ public class BossPattern : MonoBehaviour {
 			Destroy (gameObject, 0.5f);
 
 		}
-	}
+	}*/
 }
