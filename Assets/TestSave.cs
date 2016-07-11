@@ -10,6 +10,7 @@ public class TestSave : MonoBehaviour {
 
     void Update()
     {
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (GameManager.instance.isOpenUISaveLoad())
