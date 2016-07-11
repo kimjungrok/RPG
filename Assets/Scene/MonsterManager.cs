@@ -66,7 +66,7 @@ public class MonsterManager : MonoBehaviour {
 	IEnumerator ItemDrop(){
 		yield return new WaitForSeconds (1);
 	}
-
+	/*
 	IEnumerator Dammaged(){
 
 		aniCon.SetBool ("IsDammaged", true);
@@ -82,8 +82,8 @@ public class MonsterManager : MonoBehaviour {
 		//MonsterCurrentHP -=  ; // 플레이어의 공격력만큼 깍음
 		yield return new WaitForSeconds (0.01f);
 		aniCon.SetBool ("IsDammaged2", false);
-	}
 
+	}*/
 	void OnTriggerEnter (Collider col){
 
 		if (col.gameObject.tag == ("Weapon")) {
