@@ -13,7 +13,7 @@ public class NewFirePattern : MonoBehaviour {
 	public float HowLongShootTime;
 	private float StartTime;
 
-
+	public GameObject Boss;
 
 	public float fps1 = 10;
 	public float fps2 = 10;
@@ -31,6 +31,8 @@ public class NewFirePattern : MonoBehaviour {
 		FirePointTransform = FirePoint.transform;
 		//Bullet = GameObject.FindGameObjectWithTag ("bullet");
 		//ShotAngleRange = 9;
+
+		Boss = GameObject.FindGameObjectWithTag ("Boss");
 
 		StartCoroutine (TimeRotation (this.gameObject, 0.01f, 1f));
 
@@ -62,10 +64,11 @@ public class NewFirePattern : MonoBehaviour {
 					yield return null;
 				} else {
 					Instantiate (Bullet1, FirePointTransform.position, FirePointTransform.rotation);
+					//Instantiate (Bullet1, Boss.transform.position, Boss.transform.rotation);
 					yield return new WaitForSeconds (1 / fps1);
 
 	
-					FirePointTransform.rotation = Quaternion.Euler (0, Random.Range (-FireRadicalAngle/2, FireRadicalAngle/2), 0);
+					FirePointTransform.rotation = Quaternion.Euler (0, - 180 + (Random.Range (-FireRadicalAngle/2, FireRadicalAngle/2)), 0);
 
 					StartTime += Time.deltaTime;
 					if (StartTime > HowLongShootTime) {
