@@ -20,9 +20,6 @@ public class TestSave : MonoBehaviour {
             {
                 GameManager.instance.OpenUISaveLoad(UISaveLoadInfo.MODE.SAVELOAD, null);
             }
-                
-
         }
-    }
-   
+    }   
 }
