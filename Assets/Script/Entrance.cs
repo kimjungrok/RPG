@@ -6,9 +6,10 @@ public class Entrance : MonoBehaviour {
 	public int indexMoveStage;
     public Transform transPlayerInNextStage;
     private GameManager gm;
-
+    private Collider doorCollider;
     void Start()
     {
+        doorCollider = GetComponent<Collider>();        
         gm = FindObjectOfType<GameManager>();
         StartCoroutine(ColliderDelay());
     }
@@ -16,11 +17,22 @@ public class Entrance : MonoBehaviour {
     void OnTriggerEnter(Collider colOther)
     {
         if (colOther.CompareTag("Player"))
+            {
+                gm.MoveStage(indexMoveStage, transPlayerInNextStage.position);
+           }
+                
+    }
+    public bool isOpen
+    {
+        get
         {
-            gm.MoveStage(indexMoveStage, transPlayerInNextStage.position);
+            return doorCollider.isTrigger;
+        }
+        set
+        {
+            doorCollider.isTrigger = value;
         }
     }
-
     IEnumerator ColliderDelay()
     {
         GetComponent<BoxCollider>().enabled = false;
