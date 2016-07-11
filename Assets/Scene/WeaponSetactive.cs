@@ -12,7 +12,7 @@ public class WeaponSetactive : MonoBehaviour {
 	}
 
 	IEnumerator WeaponDisable(float DisableTime){
-		yield return new WaitForSeconds (0.5f);
+		yield return new WaitForSeconds (0.05f);
 		this.gameObject.SetActive (false);
 	}
 
@@ -21,7 +21,7 @@ public class WeaponSetactive : MonoBehaviour {
 		if (Coll.gameObject == player) {
 			
 			this.gameObject.SetActive (true);
-			WeaponDisable (0.5f);
+			WeaponDisable (0.05f);
 
 		}
 	}

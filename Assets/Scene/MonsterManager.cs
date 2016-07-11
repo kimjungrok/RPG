@@ -6,7 +6,7 @@ public class MonsterManager : MonoBehaviour {
 	NavMeshAgent agent;
 	GameObject player; // 플레이어오브젝트
 	//public GameObject ThisMonster; //이 몬스터
-	public BoxCollider col;
+	public BoxCollider col = null;
 
 	public Vector3 Dir;
 
@@ -38,6 +38,20 @@ public class MonsterManager : MonoBehaviour {
 	public float Respawntime;
 	public GameObject RespawnMonster;
 
+
+
+
+	public GameObject bullet = null;
+	bool isfire = false;
+	public float fps = 10;
+	public float attackRange = 30f;
+
+	public bool Far;
+
+
+
+
+
 	// Use this for initialization
 	void Start () {
 		vecSpawnPos = transform.position;
@@ -52,9 +66,23 @@ public class MonsterManager : MonoBehaviour {
 
 		col.enabled = false;
 
-		//ray = new Ray (ThisMonster.transform.position, ThisMonster.transform.forward);
+		if (Far == true) {
+			StartCoroutine (Fire ());
+		}
 
 	}
+
+	IEnumerator Fire() {
+		while (true) {
+			if (isfire == false) {
+				yield return null;
+			} else {
+				Instantiate (bullet, transform.position, transform.rotation);
+				yield return new WaitForSeconds (1 / fps);
+			}
+		}
+	}
+
 	IEnumerator Respawn(float Respawntime){
 		yield return new WaitForSeconds (Respawntime);
 		Instantiate (RespawnMonster, RespawnPosOrigin, transform.rotation);
@@ -148,47 +176,74 @@ public class MonsterManager : MonoBehaviour {
 			agent.SetDestination (player.transform.position);
 			agent.Resume ();
 
-			if (Vector3.Distance (player.transform.position, this.transform.position) <= 7) {
-				aniCon.SetBool ("IsRun", false);
-				agent.Stop ();
+			//if (this.gameObject.tag == "Far") {
+			if (Far == true) {
+				if (Vector3.Distance (player.transform.position, this.transform.position) <= attackRange ){
+					aniCon.SetBool ("IsRun", false);
+					agent.Stop ();
 
-				AttackTpyeONEorTwo = Random.Range (-10, 10);
-				//Debug.Log (" new attack");
-				if (AttackTpyeONEorTwo >= 0) {
-					//Debug.Log (" attack1");
-					aniCon.SetBool ("IsAttack2", false);
-					aniCon.SetBool ("IsAttack1", true);
-					col.enabled = true;
-
-					Vector3 vecLookPos = player.transform.position;
-					vecLookPos.y = transform.position.y;
-					transform.LookAt (vecLookPos);
-					/*
-					//NextPattern = Time.time + AttackColltime; // 공격후일정시간뒤에도 그공격범위내에 플레이어가 존재시
-					if (Vector3.Distance (player.transform.position, this.transform.position) <= 5.0f &&
-					    Mathf.Abs (Vector3.Angle (player.transform.forward, ThisMonster.transform.position - player.transform.position)) <= 7.5f) {
-						//playerHP -= AttackPower; // player 가 몬스터의 공격력 만큼 대미지를 입음
-					} else {
-						//player가 대미지 피해 없음
-					}*/
-				} if (AttackTpyeONEorTwo < 0) {
-					//Debug.Log (" attack2");
-					aniCon.SetBool ("IsAttack1", false);
-					aniCon.SetBool ("IsAttack2", true);
-					col.enabled = true;
+					isfire = true;
+					aniCon.SetBool ("IsFarAttack", true);
 
 					Vector3 vecLookPos = player.transform.position;
 					vecLookPos.y = transform.position.y;
 					transform.LookAt (vecLookPos);
 
+
+				} else {
+					aniCon.SetBool ("IsRun", true);
+					aniCon.SetBool ("IsFarAttack", false);
+					isfire = false;
 				}
-
 			} else {
-				aniCon.SetBool ("IsRun", true);
-				aniCon.SetBool ("IsAttack1", false);
-				aniCon.SetBool ("IsAttack2", false);
-				col.enabled = false;
+				if (Vector3.Distance (player.transform.position, this.transform.position) <= 7) {
+					aniCon.SetBool ("IsRun", false);
+					agent.Stop ();
+
+
+
+
+					AttackTpyeONEorTwo = Random.Range (-10, 10);
+					//Debug.Log (" new attack");
+					if (AttackTpyeONEorTwo >= 0) {
+						//Debug.Log (" attack1");
+						aniCon.SetBool ("IsAttack2", false);
+						aniCon.SetBool ("IsAttack1", true);
+						col.enabled = true;
+
+						Vector3 vecLookPos = player.transform.position;
+						vecLookPos.y = transform.position.y;
+						transform.LookAt (vecLookPos);
+						/*
+					//NextPattern = Time.time + AttackColltime; // 공격후일정시간뒤에도 그공격범위내에 플레이어가 존재시
+						if (Vector3.Distance (player.transform.position, this.transform.position) <= 5.0f &&
+							Mathf.Abs (Vector3.Angle (player.transform.forward, ThisMonster.transform.position - player.transform.position)) <= 7.5f) {
+							//playerHP -= AttackPower; // player 가 몬스터의 공격력 만큼 대미지를 입음
+						} else {
+							//player가 대미지 피해 없음
+						}*/
+					} if (AttackTpyeONEorTwo < 0) {
+						//Debug.Log (" attack2");
+						aniCon.SetBool ("IsAttack1", false);
+						aniCon.SetBool ("IsAttack2", true);
+						col.enabled = true;
+
+						Vector3 vecLookPos = player.transform.position;
+						vecLookPos.y = transform.position.y;
+						transform.LookAt (vecLookPos);
+
+					}
+
+				} else {
+					aniCon.SetBool ("IsRun", true);
+					aniCon.SetBool ("IsAttack1", false);
+					aniCon.SetBool ("IsAttack2", false);
+					col.enabled = false;
+				}
 			}
+
+
+			
 
 
 
@@ -196,6 +251,8 @@ public class MonsterManager : MonoBehaviour {
 			
 			isChase = false;
 			col.enabled =false;
+			isfire = false; //
+			aniCon.SetBool ("IsFarAttack", false); //
 			agent.SetDestination (vecMovePos);
 			//agent.SetDestination (this.transform.position.x + Random.Range(-random,random),this.transform.position.y, this.transform.position.z + Random.Range(-random,random));
 			agent.Resume ();
@@ -210,6 +267,7 @@ public class MonsterManager : MonoBehaviour {
 			aniCon.SetBool ("IsIdle", false);
 			aniCon.SetBool ("IsAttack1", false);
 			aniCon.SetBool ("IsAttack2", false);
+			aniCon.SetBool ("IsFarAttack", false);
 			aniCon.SetBool ("IsRun", false);
 			aniCon.SetBool ("IsDie", true);
 			StartCoroutine(Respawn(Respawntime));
